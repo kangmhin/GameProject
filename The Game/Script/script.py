@@ -8,7 +8,7 @@ screen_width = 1280
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('The Game')
 
-
+startImg = pygame.image.load("image/others/")
 
 #게임 실행
 run = True
