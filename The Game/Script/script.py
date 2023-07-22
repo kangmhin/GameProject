@@ -16,6 +16,8 @@ startImg = pygame.image.load("The Game/Image/others/starticon.png")
 quitImg = pygame.image.load("The Game/Image/others/quiticon.png")
 clickStartImg = pygame.image.load("The Game/Image/others/clickedStarticon.png")
 clickQuitImg = pygame.image.load("The Game/Image/others/clickedQuiticon.png")
+exitdoor = pygame.image.load("The Game/Image/hallway/hollway_exit.png")
+retiringdoor = pygame.image.load("The Game/Image/hallway/hollway_retiringroom_door.png")
 
 fps = pygame.time.Clock()
 
@@ -47,8 +49,9 @@ def mainmenu() :
                 sys.exit()
         screen.fill(white)
 
-        startButton = Button(startImg,207,302,60,20,clickStartImg,200,300,None)
-        quitButton = Button(quitImg,205,422,60,20,clickQuitImg,200, 420,quitgame)
+        #startButton = Button(startImg,207,302,60,20,clickStartImg,200,300,None)
+        #quitButton = Button(quitImg,205,422,60,20,clickQuitImg,200, 420,quitgame)
+        doingButton = Button(exitdoor,0,0,60,20,exitdoor,0, 0,quitgame)
         pygame.display.update()
         fps.tick(15)
 
