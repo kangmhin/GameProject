@@ -12,47 +12,52 @@ screen_width = 1280
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('The Game')
 
-startImg = pygame.image.load("The Game/Image/others/starticon.png")
-quitImg = pygame.image.load("The Game/Image/others/quiticon.png")
-clickStartImg = pygame.image.load("The Game/Image/others/clickedStarticon.png")
-clickQuitImg = pygame.image.load("The Game/Image/others/clickedQuiticon.png")
-exitdoor = pygame.image.load("The Game/Image/hallway/hollway_exit.png")
-retiringdoor = pygame.image.load("The Game/Image/hallway/hollway_retiringroom_door.png")
 
-fps = pygame.time.Clock()
+game_state = "hollway"  # 현재 게임 상태
 
-class Button :
-    def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None) :
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
-        if x + width > mouse[0] > x and y + height > mouse[1] > y :
-            screen.blit(img_act, (x_act, y_act))
-        if click[0] and action != None :
-            time.sleep(1)
-            action()
-        else :
-            screen.blit(img_in, (x, y))
 
-def quitgame():
-    pygame.quit()
-    sys.exit()
+exitdoor = pygame.image.load("The Game/image/hollway/hollway_exit.png")
+exitdoor_rect = exitdoor.get_rect()
+exitdoor_rect.center = (screen_width // 2, screen_height // 2)
+labdoor = pygame.image.load("The Game/image/hollway/hollway_lab_door.png")
+labdoor_rect = labdoor.get_rect()
+labdoor_rect.center = (screen_width // 5.0, screen_height // 2)
+retiringdoor = pygame.image.load("The Game/image\hollway/hollway_retiringroom_door.png")
+retiringdoor_rect = retiringdoor.get_rect()
+retiringdoor_rect.center = (screen_width // 2.6, screen_height // 2)
+storagedoor = pygame.image.load("The Game/image/hollway/hollway_storage_door.png")
+storagedoor_rect = storagedoor.get_rect()
+storagedoor_rect.center = (screen_width // 1.6, screen_height // 2)
+seciritydoor = pygame.image.load("The Game/image/hollway/hollway_securityroom_door.png")
+seciritydoor_rect = seciritydoor.get_rect()
+seciritydoor_rect.center = (screen_width // 1.3 , screen_height // 2)
 
-#게임 실행
-def mainmenu() :
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:  # 마우스 클릭 이벤트 처리
+            if game_state == "hollway" :
+                if exitdoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
+                    print('exitdoor') 
+                elif labdoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
+                    game_state = "lab"
+                elif retiringdoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
+                    print('retiringdoor')
+                elif storagedoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
+                    print('storagedoor')
+                elif seciritydoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
+                    print('seciritydoor')
     
-    run = True
+    screen.fill((255, 255, 255))  # 화면을 흰색으로 지우기
+    if game_state == "hollway":
+        screen.blit(exitdoor, exitdoor_rect)
+        screen.blit(labdoor, labdoor_rect)
+        screen.blit(retiringdoor, retiringdoor_rect)
+        screen.blit(storagedoor, storagedoor_rect)
+        screen.blit(seciritydoor, seciritydoor_rect)
     
-    while run :
-        for event in pygame.event.get() :
-            if event.type == pygame.QUIT :
-                pygame.quit()
-                sys.exit()
-        screen.fill(white)
+    pygame.display.flip()  # 화면 업데이트
 
-        #startButton = Button(startImg,207,302,60,20,clickStartImg,200,300,None)
-        #quitButton = Button(quitImg,205,422,60,20,clickQuitImg,200, 420,quitgame)
-        doingButton = Button(exitdoor,0,0,60,20,exitdoor,0, 0,quitgame)
-        pygame.display.update()
-        fps.tick(15)
-
-mainmenu()
+pygame.quit()
