@@ -12,8 +12,12 @@ screen_width = 1280
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('The Game')
 
+game_state = "start"  # 현재 게임 상태
 
-game_state = "hollway"  # 현재 게임 상태
+start_button = pygame.image.load("The Game/image/Other/startButton.png")
+start_button_rect = start_button.get_rect()
+start_button_rect.center = (100, screen_height // 2)
+
 
 
 exitdoor = pygame.image.load("The Game/image/hollway/hollway_exit.png")
@@ -38,7 +42,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:  # 마우스 클릭 이벤트 처리
-            if game_state == "hollway" :
+            if game_state == "start":
+                # 시작 버튼을 클릭하면 게임 상태를 "hollway"로 변경
+                if start_button_rect.collidepoint(event.pos):
+                    game_state = "hollway"
+            elif game_state == "hollway" :
                 if exitdoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
                     print('exitdoor') 
                 elif labdoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
@@ -50,14 +58,19 @@ while running:
                 elif seciritydoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
                     print('seciritydoor')
     
-    screen.fill((255, 255, 255))  # 화면을 흰색으로 지우기
+    screen.fill(white)  # 화면을 흰색으로 지우기
+
+    if game_state == "start":
+        screen.blit(start_button, start_button_rect)
+
     if game_state == "hollway":
         screen.blit(exitdoor, exitdoor_rect)
         screen.blit(labdoor, labdoor_rect)
         screen.blit(retiringdoor, retiringdoor_rect)
         screen.blit(storagedoor, storagedoor_rect)
         screen.blit(seciritydoor, seciritydoor_rect)
-    
+    elif game_state == "lab":
+        pass
     pygame.display.flip()  # 화면 업데이트
 
 pygame.quit()
