@@ -36,6 +36,26 @@ seciritydoor = pygame.image.load("The Game/image/hollway/hollway_securityroom_do
 seciritydoor_rect = seciritydoor.get_rect()
 seciritydoor_rect.center = (screen_width // 1.3 , screen_height // 2)
 
+
+lab_clock = pygame.image.load("The Game/image/lab/lab_clock.png")
+lab_clock_rect = lab_clock.get_rect()
+lab_clock_rect.center = (screen_width // 1.3, 100)
+lab_computer = pygame.image.load("The Game/image/lab/lab_computer.png")
+lab_computer_rect = lab_computer.get_rect()
+lab_computer_rect.center = (screen_width // 2.5, screen_height // 2)
+lab_door = pygame.image.load("The Game/image/lab/lab_door.png")
+lab_door_rect = lab_door.get_rect()
+lab_door_rect.center = (100, screen_height // 1.8)
+lab_researcher = pygame.image.load("The Game/image/lab/lab_researcher.png")
+lab_researcher_rect = lab_researcher.get_rect()
+lab_researcher_rect.center = (screen_width - 100, screen_height // 1.5)
+lab_profile = pygame.image.load("The Game/image/lab/lab_profile.png")
+lab_profile_rect = lab_profile.get_rect()
+lab_profile_rect.center = (screen_width // 1.3, screen_height // 2)
+lab_switch = pygame.image.load("The Game/image/lab/lab_switch.png")
+lab_switch_rect = lab_switch.get_rect()
+lab_switch_rect.center = (screen_width // 1.7, screen_height // 2)
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -57,6 +77,20 @@ while running:
                     print('storagedoor')
                 elif seciritydoor_rect.collidepoint(event.pos):  # 이미지 위에서 클릭되었는지 확인
                     print('seciritydoor')
+            elif game_state == "lab" :
+                if lab_clock_rect.collidepoint(event.pos):
+                    print("시계다")
+                elif lab_computer_rect.collidepoint(event.pos):
+                    print("컴퓨터다.")
+                elif lab_door_rect.collidepoint(event.pos):
+                    game_state = "hollway"
+                elif lab_researcher_rect.collidepoint(event.pos):
+                    print("시체다.")
+                elif lab_profile_rect.collidepoint(event.pos):
+                    print("프로필이다.")
+                elif lab_switch_rect.collidepoint(event.pos):
+                    print("스위치다.")
+
     
     screen.fill(white)  # 화면을 흰색으로 지우기
 
@@ -69,8 +103,15 @@ while running:
         screen.blit(retiringdoor, retiringdoor_rect)
         screen.blit(storagedoor, storagedoor_rect)
         screen.blit(seciritydoor, seciritydoor_rect)
-    elif game_state == "lab":
-        pass
+    
+    if game_state == "lab":
+        screen.blit(lab_clock, lab_clock_rect)
+        screen.blit(lab_computer, lab_computer_rect)
+        screen.blit(lab_door, lab_door_rect)
+        screen.blit(lab_researcher, lab_researcher_rect)
+        screen.blit(lab_profile, lab_profile_rect)
+        screen.blit(lab_switch, lab_switch_rect)
+    
     pygame.display.flip()  # 화면 업데이트
 
 pygame.quit()
