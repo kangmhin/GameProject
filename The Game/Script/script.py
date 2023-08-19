@@ -56,6 +56,11 @@ lab_switch = pygame.image.load("The Game/image/lab/lab_switch.png")
 lab_switch_rect = lab_switch.get_rect()
 lab_switch_rect.center = (screen_width // 1.7, screen_height // 2)
 
+
+lab_switch_flag = True
+
+
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -88,7 +93,8 @@ while running:
                     print("시체다.")
                 elif lab_profile_rect.collidepoint(event.pos):
                     print("프로필이다.")
-                elif lab_switch_rect.collidepoint(event.pos):
+                elif lab_switch_rect.collidepoint(event.pos) and lab_switch_flag :
+                    lab_switch_flag = False
                     print("스위치다.")
 
     
@@ -110,7 +116,9 @@ while running:
         screen.blit(lab_door, lab_door_rect)
         screen.blit(lab_researcher, lab_researcher_rect)
         screen.blit(lab_profile, lab_profile_rect)
-        screen.blit(lab_switch, lab_switch_rect)
+        if lab_switch_flag :
+            screen.blit(lab_switch, lab_switch_rect)
+            
     
     pygame.display.flip()  # 화면 업데이트
 
